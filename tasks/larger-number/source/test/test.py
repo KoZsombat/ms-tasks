@@ -16,24 +16,24 @@ def run_main():
 class TestLargerNumber(unittest.TestCase):
   def test_first_is_larger(self):
     _, main = run_main()
-    self.assertEqual(main.Nagyobb(5, 2), 5)
+    self.assertEqual(main.nagyobb(5, 2), 5)
 
   def test_second_is_larger(self):
     _, main = run_main()
-    self.assertEqual(main.Nagyobb(2, 7), 7)
+    self.assertEqual(main.nagyobb(2, 7), 7)
 
   def test_equal_numbers(self):
     _, main = run_main()
-    self.assertEqual(main.Nagyobb(4, 4), 4)
+    self.assertEqual(main.nagyobb(4, 4), 4)
 
   def test_negative_numbers(self):
     _, main = run_main()
-    self.assertEqual(main.Nagyobb(-3, -8), -3)
-    self.assertEqual(main.Nagyobb(-10, 0), 0)
+    self.assertEqual(main.nagyobb(-3, -8), -3)
+    self.assertEqual(main.nagyobb(-10, 0), 0)
 
   def test_float_numbers(self):
     _, main = run_main()
-    self.assertEqual(main.Nagyobb(2.5, 2.7), 2.7)
+    self.assertEqual(main.nagyobb(2.5, 2.7), 2.7)
 
   def test_prints_example_result(self):
     out, _ = run_main()

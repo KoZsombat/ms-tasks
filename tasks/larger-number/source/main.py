@@ -1,7 +1,7 @@
-def Nagyobb(a, b):
+def nagyobb(a, b):
   if (a > b): 
     return a 
   else: 
     return b
 
-print(Nagyobb(3, 2))
+print(nagyobb(3, 2))

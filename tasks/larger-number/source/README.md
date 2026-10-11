@@ -6,12 +6,12 @@
 
 ## Követelmények
 
-1. Hozz létre egy `Nagyobb` nevű függvényt, amely két paramétert kap: `a` és `b`.
+1. Hozz létre egy `nagyobb` nevű függvényt, amely két paramétert kap: `a` és `b`.
 
    Függvény:
 
    ```py
-   def FüggvényNév(paraméter1, paraméter2):
+   def függvény_név(paraméter1, paraméter2):
      # ide jön a függvény törzse
    ```
 
@@ -31,7 +31,7 @@
    Függvényhívás és kiírás:
 
    ```py
-   print(FüggvényNév(szám1, szám2))
+   print(függvény_név(szám1, szám2))
    ```
 
 A függvény egyenlő számokkal, negatív számokkal és tizedes törtekkel (pl. `2.5`, `2.7`) is működjön.
@@ -40,11 +40,11 @@ A függvény egyenlő számokkal, negatív számokkal és tizedes törtekkel (pl
 
 A megoldást 6 teszt ellenőrzi (1-1 pont):
 
-- Ha az első szám a nagyobb, a függvény azt adja vissza (`Nagyobb(5, 2)` → `5`).
-- Ha a második szám a nagyobb, a függvény azt adja vissza (`Nagyobb(2, 7)` → `7`).
-- Egyenlő számok esetén a közös értéket adja vissza (`Nagyobb(4, 4)` → `4`).
-- Negatív számokat is helyesen hasonlít össze (`Nagyobb(-3, -8)` → `-3`).
-- Tizedes törteket is helyesen hasonlít össze (`Nagyobb(2.5, 2.7)` → `2.7`).
+- Ha az első szám a nagyobb, a függvény azt adja vissza (`nagyobb(5, 2)` → `5`).
+- Ha a második szám a nagyobb, a függvény azt adja vissza (`nagyobb(2, 7)` → `7`).
+- Egyenlő számok esetén a közös értéket adja vissza (`nagyobb(4, 4)` → `4`).
+- Negatív számokat is helyesen hasonlít össze (`nagyobb(-3, -8)` → `-3`).
+- Tizedes törteket is helyesen hasonlít össze (`nagyobb(2.5, 2.7)` → `2.7`).
 - A program kiírja a `3` és `2` közül a nagyobbat.
 
 A kiírás pontos formáját a tesztek nem ellenőrzik, csak azt, hogy a `3` megjelenik-e.
