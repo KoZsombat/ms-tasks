@@ -1,10 +1,10 @@
 ---
 name: finish
-description: Generate scoring.sh, source/test/test.py and (if missing) source/README.md for an ms-tasks task folder from its main.py, following the repo's task conventions. Use when finishing, grading or writing tests for a task under tasks/.
-argument-hint: <task-folder>
+description: Create or finish an ms-tasks task. Given just a short task description (no folder name needed), invent a folder name like the existing ones, create tasks/<name>/ with source/main.py if it is missing, then generate scoring.sh, source/test/test.py and source/README.md, following the repo's task conventions and the already finished tasks. Use when creating, finishing, grading or writing tests for a task under tasks/.
+argument-hint: <short task description, or an existing task folder>
 ---
 
-Task folder: $ARGUMENTS
+Task: $ARGUMENTS
 
 Short Python programming exercises for Hungarian-speaking beginners. Each task lives in its own folder under `tasks/` and is auto-graded in a sandbox.
 
@@ -60,16 +60,27 @@ Copy the structure of `tasks/greeting-task/scoring.sh` exactly:
 
 ## Procedure
 
-Generates the grading files for a task that only has its solution so far.
+Creates a whole task (if needed) and its grading files.
 
-Input: a task folder, e.g. `tasks/greeting-task`, containing at least `source/main.py` (and usually `source/README.md`).
+Input: `$ARGUMENTS`, normally just a short description of the task in any language (e.g. `calculate simple interest`, `szorzótábla 1-től 10-ig`). The user does not give a folder name. It can also be the name of an existing folder under `tasks/` (e.g. `leap-year`), to finish that task.
 
 Steps:
-1. Read `source/main.py` and `source/README.md` if it exists, to work out what the program must do.
-2. Write `source/test/test.py`: 3–6 tests covering the main requirements plus edge cases, following the conventions above.
-3. Write `scoring.sh` with one `check` line per test.
-4. If `source/README.md` exists, update its `## Értékelés` section to list the tests (one Hungarian bullet each, test count and points matching). If there is no README, write one following the README conventions above.
-5. Run the tests against the reference solution from the `source` folder: `python -B -m unittest discover -s test -p "test.py" -v`. Every test must pass. Also run each `-k <name>` and confirm it reports `Ran 1 test`. Always pass `-B` so no `__pycache__` folders are created, and delete any that appear anyway.
-6. Report which tests were created and what each one checks.
+0. Resolve the task folder:
+   - List `tasks/`. If the argument is (or is an obvious typo of) an existing folder name, use that folder. If the folder name is misspelled, tell the user and rename it only if they typed the correct spelling.
+   - If the description matches an existing task that has no `scoring.sh` yet, use that folder.
+   - Otherwise it is a new task: invent the folder name yourself, then create `tasks/<name>/source/`. The name follows the existing ones: 2–3 lowercase English words joined by hyphens, describing what the program does (`total-cost`, `leap-year`, `valid-triangle`, `avg-speed`, `number-pos-neg`, `temp-trends`). It must not collide with an existing folder. Don't ask the user to pick a name; mention the chosen name in the final report.
+   - Look at 3–4 finished tasks (folders that have `scoring.sh`, e.g. `greeting-task`, `suitable-clothing`, `temp-trends`, `library`) and use them as examples for the style of `main.py`, `test.py`, `README.md` and `scoring.sh`. Prefer ones similar to the new task (input/arithmetic, if/else, loops, functions, lists/dicts).
+1. If `source/main.py` is missing or empty, write it as the reference solution. Keep it short and beginner-level, like the existing ones:
+   - Hungarian prompts and output text; English identifiers; 2-space indentation.
+   - Simple constructs only: `int(input("..."))`, `if`/`elif`/`else`, `for`/`while`, `def` + `return`, lists/dicts, f-string `print`. No classes, no imports unless needed.
+   - Input-driven programs use `input`; function/list/dict tasks use a hardcoded data structure plus functions and print the results, so tests can import and call them.
+   - It must be correct, including edge cases the task description implies (e.g. the full leap-year rule). If the description is ambiguous, choose the simplest sensible reading and state the assumption in the final report.
+   Then continue. Don't ask for confirmation first unless the task is too vague to guess.
+2. Read `source/main.py` and `source/README.md` if it exists, to work out what the program must do. Run `main.py` once with sample input to check it works. If an existing `main.py` has a bug (wrong result, crash on normal input), stop and report it instead of writing tests that encode the bug. Fix `main.py` only when the user asked for it or when you wrote it in this run.
+3. Write `source/test/test.py`: 3–6 tests covering the main requirements plus edge cases, following the conventions above.
+4. Write `scoring.sh` with one `check` line per test. Make it executable (`chmod +x`).
+5. If `source/README.md` exists, update its `## Értékelés` section to list the tests (one Hungarian bullet each, test count and points matching). If there is no README, write one following the README conventions above.
+6. Run the tests against the reference solution from the `source` folder: `python3 -B -m unittest discover -s test -p "test.py" -v`. Every test must pass. Also run each `-k <name>` and confirm it reports `Ran 1 test`. Always pass `-B` so no `__pycache__` folders are created, and delete any that appear anyway.
+7. Report, in Hungarian if the user wrote Hungarian: which files were created (and whether `main.py` was written by you), which tests were created and what each one checks, and any assumption or problem found in `main.py`.
 
-Don't modify `main.py`. If it seems to contradict the README, stop and ask.
+Don't modify an existing, user-written `main.py` unless asked. If it seems to contradict the README, stop and ask.
